@@ -38,6 +38,39 @@
             [macaddress, text]
         );
     };
+	
+	Zebrushe.prototype.printImage = function (macaddress, pathi, x, y, w, h, successCallback, errorCallback) {
+        
+        if (successCallback === null) {
+            successCallback = function (response) {
+                console.log('Zebrushe.printImage sukses: ' + response);
+            };
+        }
+        
+        if (errorCallback === null) {
+            errorCallback = function (error) {
+                console.error('Zebrushe.printImage deshtim: ' + error);
+            };
+        }
+        
+        if (typeof errorCallback != "function") {
+            console.error("Zebrushe.printImage failure: parametri deshtimit nuk eshte funksion");
+            return;
+        }
+        
+        if (typeof successCallback != "function") {
+            console.error("Zebrushe.printImage failure: parametri callback i suksesit duhet te jete patjeter funksion");
+            return;
+        }
+        
+        exec(
+            successCallback,
+            errorCallback,
+            "Zebrushe",
+            "printImage",
+            [macaddress, pathi, x, y, w, h]
+        );
+    };
     
     module.exports = new Zebrushe();
 };
