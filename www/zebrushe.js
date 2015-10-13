@@ -6,7 +6,7 @@
 	
     };
     
-    Zebrushe.prototype.printText = function (text, successCallback, errorCallback) {
+    Zebrushe.prototype.printText = function (macaddress, text, successCallback, errorCallback) {
         
         if (successCallback === null) {
             successCallback = function (response) {
@@ -35,7 +35,7 @@
             errorCallback,
             "Zebrushe",
             "printText",
-            [text]
+            [macaddress, text, null]
         );
     };
     
