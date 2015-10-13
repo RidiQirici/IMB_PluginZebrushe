@@ -2,14 +2,14 @@ package imb.ridiqirici.plugin.cordova.zebra;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+//import java.util.Iterator;
+//import java.util.Map;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONObject;
 
 import com.zebra.sdk.comm.BluetoothConnection;
 import com.zebra.sdk.comm.Connection;
@@ -27,28 +27,19 @@ public class Zebrushe extends CordovaPlugin {
         if (PRINT_TEXT.equals(action)) {
             String macaddress = args.getString(0);
             String label = args.getString(1);
-            JSONObject params = args.getJSONObject(2);
-
-            Map<Integer, String> vars = new HashMap<Integer, String>();
-            Iterator<String> keys = params.keys();
-            while (keys.hasNext()) {
-                String key = (String) keys.next();
-                vars.put(Integer.parseInt(key), (String) params.get(key));
-            }
-
-            this.printText(macaddress, label, vars, callbackContext);
+            this.printText(macaddress, label, callbackContext);
             return true;
         }
         return false;
     }
 
-    private void printText(String macaddress, String label, Map<Integer, String> vars, CallbackContext callbackContext) {
+    private void printText(String macaddress, String label, CallbackContext callbackContext) {
         Connection connection =  new BluetoothConnection(macaddress);
 
         try {
                 connection.open();
                 com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);             
-                printer.printStoredFormat(label, vars, "utf8");
+                printer.printStoredFormat(label, new HashMap<Integer, String>(), "utf8");
                 connection.close();
         } catch (ConnectionException e) {
             e.printStackTrace();

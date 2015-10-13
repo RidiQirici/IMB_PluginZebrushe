@@ -35,7 +35,7 @@
             errorCallback,
             "Zebrushe",
             "printText",
-            [macaddress, text, ""]
+            [macaddress, text]
         );
     };
     
