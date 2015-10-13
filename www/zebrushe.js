@@ -71,6 +71,39 @@
             [macaddress, pathi, x, y, w, h]
         );
     };
+	
+	Zebrushe.prototype.getLocation = function (successCallback, errorCallback) {
+        
+        if (successCallback === null) {
+            successCallback = function (response) {
+                console.log('Zebrushe.getLocation sukses: ' + response);
+            };
+        }
+        
+        if (errorCallback === null) {
+            errorCallback = function (error) {
+                console.error('Zebrushe.getLocation deshtim: ' + error);
+            };
+        }
+        
+        if (typeof errorCallback != "function") {
+            console.error("Zebrushe.getLocation failure: parametri deshtimit nuk eshte funksion");
+            return;
+        }
+        
+        if (typeof successCallback != "function") {
+            console.error("Zebrushe.getLocation failure: parametri callback i suksesit duhet te jete patjeter funksion");
+            return;
+        }
+        
+        exec(
+            successCallback,
+            errorCallback,
+            "Zebrushe",
+            "getLocation",
+            []
+        );
+    };
     
     module.exports = new Zebrushe();
 };
