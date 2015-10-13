@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.cordova.api.CallbackContext;
-import org.apache.cordova.api.CordovaPlugin;
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +20,11 @@ import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 
 public class Zebrushe extends CordovaPlugin {
     
-    public static final String PRINT_LABEL = "printLabel";
+    public static final String PRINT_TEXT = "printText";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (PRINT_LABEL.equals(action)) {
+        if (PRINT_TEXT.equals(action)) {
             String macaddress = args.getString(0);
             String label = args.getString(1);
             JSONObject params = args.getJSONObject(2);
@@ -36,13 +36,13 @@ public class Zebrushe extends CordovaPlugin {
                 vars.put(Integer.parseInt(key), (String) params.get(key));
             }
 
-            this.printLabel(macaddress, label, vars, callbackContext);
+            this.printText(macaddress, label, vars, callbackContext);
             return true;
         }
         return false;
     }
 
-    private void printLabel(String macaddress, String label, Map<Integer, String> vars, CallbackContext callbackContext) {
+    private void printText(String macaddress, String label, Map<Integer, String> vars, CallbackContext callbackContext) {
         Connection connection =  new BluetoothConnection(macaddress);
 
         try {

@@ -1,0 +1,23 @@
+{
+  "name": "imb_pluginzebrushe",
+  "version": "1.0.1",
+  "description": "Plugin per printimet me zebrushen",
+  "main": "www/zebrushe.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RidiQirici/IMB_PluginZebrushe.git"
+  },
+  "keywords": [
+    "imb",
+    "IMB"
+  ],
+  "author": "Ridi Qirici",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RidiQirici/IMB_PluginZebrushe/issues"
+  },
+  "homepage": "https://github.com/RidiQirici/IMB_PluginZebrushe#readme"
+}
