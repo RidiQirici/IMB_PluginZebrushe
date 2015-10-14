@@ -62,18 +62,13 @@ public class Zebrushe extends CordovaPlugin {
 
         try {
                 connection.open();
-                com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);   
+                //com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);   
                 //printer.sendCommand("! U1 setvar 'device.languages' 'line_print'");
-                printer.printStoredFormat(label, new HashMap<Integer, String>(), "utf8");
+                connection.write(label.getBytes());
+                //printer.printStoredFormat(label, new HashMap<Integer, String>(), "utf8");
                 connection.close();
                
         } catch (ConnectionException e) {
-            e.printStackTrace();
-            callbackContext.error(e.toString());
-        } catch (ZebraPrinterLanguageUnknownException e) {
-            e.printStackTrace();
-            callbackContext.error(e.toString());
-       } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             callbackContext.error(e.toString());
         } finally {
@@ -81,7 +76,7 @@ public class Zebrushe extends CordovaPlugin {
                 if(connection.isConnected()){
                     connection.close();
                 }   
-                callbackContext.success("Printimi i tekstit u krye me sukses! " + Environment.getExternalStorageDirectory());
+                callbackContext.success("Printimi i tekstit u krye me sukses! " + Environment.getExternalStorageDirectory() + " " + Environment.getRootDirectory());
             } catch (ConnectionException e) {
                 e.printStackTrace();
                 callbackContext.error(e.toString());
