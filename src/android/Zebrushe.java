@@ -63,7 +63,7 @@ public class Zebrushe extends CordovaPlugin {
         try {
                 connection.open();
                 com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);   
-                printer.sendCommand("! U1 setvar 'device.languages' 'line_print'");
+                //printer.sendCommand("! U1 setvar 'device.languages' 'line_print'");
                 printer.printStoredFormat(label, new HashMap<Integer, String>(), "utf8");
                 connection.close();
                
