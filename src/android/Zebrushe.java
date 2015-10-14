@@ -59,7 +59,8 @@ public class Zebrushe extends CordovaPlugin {
                 connection.open();
                 //com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);   
                 //printer.sendCommand("! U1 setvar 'device.languages' 'line_print'");
-                connection.write(label.getBytes());
+                String dergoString = "^XA^FO50,50^ADN,36,20^FD" + label + "^FS\r\n";
+                connection.write(dergoString.getBytes());
                 //printer.printStoredFormat(label, new HashMap<Integer, String>(), "utf8");
                 connection.close();
                
@@ -87,6 +88,7 @@ public class Zebrushe extends CordovaPlugin {
                 com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection); 
                 file = new File(Environment.getExternalStorageDirectory(), pathi);
                 connection.write("! UTILITIES\r\nIN-MILLIMETERS\r\nSETFF 10 2\r\nPRINT\r\n".getBytes());
+                printer.sendCommand("! U1 setvar \"zpl.label_length\" \"" + (2 * h) + "\"\r\n");
                 printer.printImage(new ZebraImageAndroid(BitmapFactory.decodeFile(file.getAbsolutePath())), x, y, w, h, false);
                 connection.close();
 
