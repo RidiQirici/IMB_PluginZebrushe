@@ -1,5 +1,6 @@
 package imb.ridiqirici.plugin.cordova.zebra;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -16,8 +17,12 @@ import org.json.JSONException;
 import com.zebra.sdk.comm.BluetoothConnection;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
+import com.zebra.sdk.graphics.internal.ZebraImageAndroid;
 import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
+
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 
 public class Zebrushe extends CordovaPlugin {
@@ -25,7 +30,8 @@ public class Zebrushe extends CordovaPlugin {
     public static final String PRINT_TEXT = "printText";
     public static final String PRINT_IMAGE = "printImage";
     public static final String GET_LOCATION = "getLocation";
-
+    private static File file = null;
+    
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (PRINT_TEXT.equals(action)) {
@@ -89,8 +95,8 @@ public class Zebrushe extends CordovaPlugin {
         try {
                 connection.open();
                 com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection); 
-                
-                printer.printImage(pathi, x, y, w, h, false);
+                file = new File(Environment.getExternalStorageDirectory(), pathi);
+                printer.printImage(new ZebraImageAndroid(BitmapFactory.decodeFile(file.getAbsolutePath())), x, y, w, h, false);
                 connection.close();
 
         } catch (ConnectionException e) {
@@ -99,13 +105,7 @@ public class Zebrushe extends CordovaPlugin {
         } catch (ZebraPrinterLanguageUnknownException e) {
             e.printStackTrace();
             callbackContext.error(e.toString());
-       } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            callbackContext.error(e.toString());
-        } catch (IOException e) {
-		e.printStackTrace();
-		callbackContext.error(e.toString());
-	} finally {
+       } finally {
             try {
                 if(connection.isConnected()){
                     connection.close();
