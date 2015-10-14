@@ -86,6 +86,7 @@ public class Zebrushe extends CordovaPlugin {
                 connection.open();
                 com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection); 
                 file = new File(Environment.getExternalStorageDirectory(), pathi);
+                printer.sendCommand("~jc^xa^jus^xz\r\n");
                 printer.printImage(new ZebraImageAndroid(BitmapFactory.decodeFile(file.getAbsolutePath())), x, y, w, h, false);
                 connection.close();
 
