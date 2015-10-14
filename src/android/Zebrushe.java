@@ -2,7 +2,6 @@ package imb.ridiqirici.plugin.cordova.zebra;
 
 import java.io.File;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -19,6 +18,7 @@ import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+
 
 public class Zebrushe extends CordovaPlugin {
     
@@ -86,19 +86,7 @@ public class Zebrushe extends CordovaPlugin {
                 connection.open();
                 com.zebra.sdk.printer.ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection); 
                 file = new File(Environment.getExternalStorageDirectory(), pathi);
-                byte[] binaryData = file.getAbsolutePath().getBytes(Charset.forName("UTF-8"));
-                String zplImageData = "";
-                for (byte b : binaryData) {
-                	String hexRep = String.format("{0:X}", b);
-                    if (hexRep.length() == 1)
-                        hexRep = "0" + hexRep;
-                    zplImageData += hexRep;
-				} 
-                String zplToSend = "^XA" + "^MNN" + "^LL500" + "~DYE:LOGO,P,P," + binaryData.length + ",," + zplImageData+"^XZ";
-                String printImage = "^XA^FO115,50^IME:LOGO.PNG^FS^XZ";
-                connection.write(zplToSend.getBytes());
-                connection.write(printImage.getBytes());
-                //printer.printImage(new ZebraImageAndroid(BitmapFactory.decodeFile(file.getAbsolutePath())), x, y, w, h, false);
+                printer.printImage(new ZebraImageAndroid(BitmapFactory.decodeFile(file.getAbsolutePath())), x, y, w, h, false);
                 connection.close();
 
         } catch (ConnectionException e) {
