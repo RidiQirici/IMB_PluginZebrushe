@@ -1,6 +1,6 @@
 {
   "name": "imb_pluginzebrushe",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Plugin per printimet me zebrushen",
   "main": "www/zebrushe.js",
   "scripts": {
