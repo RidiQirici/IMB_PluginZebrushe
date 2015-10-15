@@ -66,8 +66,12 @@ public class Zebrushe extends CordovaPlugin {
                
         } catch (ConnectionException e) {
             e.printStackTrace();
-            callbackContext.error(e.toString());
-        } finally {
+            callbackContext.error(e.toString()); 
+        } catch (ZebraPrinterLanguageUnknownException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			callbackContext.error(e.toString()); 
+		} finally {
             try {
                 if(connection.isConnected()){
                     connection.close();
